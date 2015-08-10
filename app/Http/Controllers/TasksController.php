@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Project;
+use App\Tasks;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -14,9 +16,9 @@ class TasksController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($project)
     {
-        //
+        return view('tasks.index', compact('project'));
     }
 
     /**
@@ -24,9 +26,9 @@ class TasksController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create($project)
     {
-        //
+        return view('tasks.create', compact('project'));
     }
 
     /**
@@ -43,44 +45,44 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $task
      * @return Response
      */
-    public function show($id)
+    public function show($project, $task)
     {
-        //
+        return view('tasks.show', compact('project', 'task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $task
      * @return Response
      */
-    public function edit($id)
+    public function edit($project, $task)
     {
-        //
+        return view('tasks.edit', compact('project', 'task'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  int  $id
+     * @param  int  $task
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $project, $task)
     {
-        //
+        return view('tasks.update', compact('project', 'task'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $task
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($project, $task)
     {
         //
     }

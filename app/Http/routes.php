@@ -19,6 +19,11 @@ Route::resource('projects', 'ProjectsController');
 Route::resource('projects.tasks', 'TasksController');
 //Route::resource('tasks', 'TasksController');
 
+// Provide controller methods with object instead of ID
+Route::model('tasks', 'Task');
+Route::model('projects', 'Project');
+
+// Use slugs rather than IDs in URLs
 Route::bind('tasks', function($value, $route) {
     return App\Task::whereSlug($value)->first();
 });
