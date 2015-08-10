@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Input;
+use Redirect;
 use App\Project;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -37,9 +38,12 @@ class ProjectsController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $input = Input::all();
+        Project::create( $input );
+ 
+        return Redirect::route('projects.index')->with('message', 'Project created');
     }
 
     /**
@@ -59,7 +63,7 @@ class ProjectsController extends Controller
      * @param  int  $project
      * @return Response
      */
-    public function edit($project)
+    public function edit(Project $project)
     {
         return view('projects.edit', compact('project'));
     }
@@ -71,9 +75,12 @@ class ProjectsController extends Controller
      * @param  int  $project
      * @return Response
      */
-    public function update(Request $request, $project)
+    public function update(Project $project)
     {
-        return view('projects.update', compact('project'));
+        $input = array_except(Input::all(), '_method');
+        $project->update($input);
+ 
+        return Redirect::route('projects.show', $project->slug)->with('message', 'Project updated.');
     }
 
     /**
@@ -82,8 +89,10 @@ class ProjectsController extends Controller
      * @param  int  $project
      * @return Response
      */
-    public function destroy($project)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+ 
+        return Redirect::route('projects.index')->with('message', 'Project deleted.');
     }
 }

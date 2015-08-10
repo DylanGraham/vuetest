@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Input;
+use Redirect;
 use App\Project;
 use App\Tasks;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
@@ -16,7 +17,7 @@ class TasksController extends Controller
      *
      * @return Response
      */
-    public function index($project)
+    public function index(Project $project)
     {
         return view('tasks.index', compact('project'));
     }
@@ -26,7 +27,7 @@ class TasksController extends Controller
      *
      * @return Response
      */
-    public function create($project)
+    public function create(Project $project)
     {
         return view('tasks.create', compact('project'));
     }
@@ -37,9 +38,13 @@ class TasksController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Project $project)
     {
-        //
+        $input = Input::all();
+        $input['project_id'] = $project->id;
+        Task::create( $input );
+     
+        return Redirect::route('projects.show', $project->slug)->with('message', 'Task created.');
     }
 
     /**
@@ -48,7 +53,7 @@ class TasksController extends Controller
      * @param  int  $task
      * @return Response
      */
-    public function show($project, $task)
+    public function show(Project $project, $task)
     {
         return view('tasks.show', compact('project', 'task'));
     }
@@ -59,7 +64,7 @@ class TasksController extends Controller
      * @param  int  $task
      * @return Response
      */
-    public function edit($project, $task)
+    public function edit(Project $project, Task $task)
     {
         return view('tasks.edit', compact('project', 'task'));
     }
@@ -71,9 +76,12 @@ class TasksController extends Controller
      * @param  int  $task
      * @return Response
      */
-    public function update(Request $request, $project, $task)
+    public function update(Project $project, Task $task)
     {
-        return view('tasks.update', compact('project', 'task'));
+        $input = array_except(Input::all(), '_method');
+        $task->update($input);
+     
+        return Redirect::route('projects.tasks.show', [$project->slug, $task->slug])->with('message', 'Task updated.');
     }
 
     /**
@@ -82,8 +90,10 @@ class TasksController extends Controller
      * @param  int  $task
      * @return Response
      */
-    public function destroy($project, $task)
+    public function destroy(Project $project, Task $task)
     {
-        //
+        $task->delete();
+ 
+        return Redirect::route('projects.show', $project->slug)->with('message', 'Task deleted.');
     }
 }
