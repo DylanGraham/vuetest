@@ -1,3 +1,7 @@
 new Vue({
-    el: '#demo'
+    el: '#demo',
+
+    data: {
+        name: 'Change this'
+    }
 })

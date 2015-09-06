@@ -8,8 +8,9 @@
 <body>
 
 <div id="demo" class="container">
-    <input type="text">
+    <input type="text" v-model="name">
 
+    <pre>@{{ $data | json }}</pre>
 </div>
 
 <script src="{{ asset('js/all.js') }}"></script>
