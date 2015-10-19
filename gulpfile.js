@@ -12,12 +12,12 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
-
-    mix.styles([
-        'bootstrap.min.css',
-        'custom.css',
-    ]);
+    mix.sass([
+        'app.scss',
+    ], 'public/css/all.css')
+        .browserSync({
+            proxy: 'localhost:8000',
+        });
 
     mix.scripts([
         'vue.min.js',
