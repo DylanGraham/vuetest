@@ -5,6 +5,17 @@ body {
     color: white;
 }
 
+body pre {
+    background-color: 121212;
+    color: white;
+}
+
+body input {
+    background-color: 121212;
+    border: dotted;
+    border-width: 1px;
+}
+
 li button {
     font-weight: bold;
     border: 0;
