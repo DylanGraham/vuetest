@@ -4,4 +4,7 @@ new Vue({
     data: {
         name: 'Change this'
     }
+
+    ready: function() {
+    }
 })
