@@ -20,7 +20,8 @@ elixir(function(mix) {
         });
 
     mix.scripts([
-        'vue.min.js',
+        'vue-1.0.0-dev.js',
+//        'vue-1.0.0-min.js',
         'custom.js',
     ]);
 
