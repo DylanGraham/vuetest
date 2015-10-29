@@ -5,6 +5,4 @@ new Vue({
         name: 'Change this'
     }
 
-    ready: function() {
-    }
 })
